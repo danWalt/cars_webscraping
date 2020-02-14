@@ -24,8 +24,8 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'}
 
 cars = []
-row = 148
-page_num = 4
+row = 219
+page_num = 6
 while page_num < 842:
     print('processing page number ' + str(page_num))
     # yad 2 cars page
@@ -61,7 +61,7 @@ while page_num < 842:
                 print("attribute error, adding to sheet car num " + str(row))
                 try:
                     sheets.insert_row(cars[i], index=row)
-                    time.sleep(1)
+                    time.sleep(2)
                     row += 1
                 except gspread.exceptions.APIError:
                     print('page num ' + str(page_num))
@@ -73,7 +73,7 @@ while page_num < 842:
             print("adding to sheet car num " + str(row))
             sheets.insert_row(cars[i], index=row)
             row += 1
-            time.sleep(1)
+            time.sleep(2)
     except gspread.exceptions.APIError:
         print('gspread.exceptions.APIError')
         break
