@@ -64,7 +64,9 @@ while page_num < 842:
                     time.sleep(2)
                     row += 1
                 except gspread.exceptions.APIError:
-                    print('page num ' + str(page_num))
+                    print('AttributeError')
+                    print('gspread.exceptions.APIError')
+
             page_num += 9999
             break
     try:
