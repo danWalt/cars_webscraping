@@ -4,6 +4,7 @@ from pprint import pprint
 import requests
 from bs4 import BeautifulSoup
 import time
+import openpyxl
 
 # Google APIs scope
 scope = ["https://spreadsheets.google.com/feeds",
@@ -23,10 +24,13 @@ sheets = client.open('cars').sheet1
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'}
 
+wb = openpyxl.load_workbook('cars.xlsx')
+s = wb.active
+
 cars = []
-row = 219
-page_num = 6
-while page_num < 842:
+row = 2
+page_num = 196
+while page_num < 838:
     print('processing page number ' + str(page_num))
     # yad 2 cars page
     URL = 'https://www.yad2.co.il/vehicles/private-cars?page=%s' % page_num
@@ -58,25 +62,16 @@ while page_num < 842:
             cars.append([car_type, description, year, hand, engine, price])
         except AttributeError:
             for i in range(len(cars)):
+                r = s.max_row + 1
                 print("attribute error, adding to sheet car num " + str(row))
-                try:
-                    sheets.insert_row(cars[i], index=row)
-                    time.sleep(2)
-                    row += 1
-                except gspread.exceptions.APIError:
-                    print('AttributeError')
-                    print('gspread.exceptions.APIError')
-
+                for j in range(0, len(cars[i])):
+                    s.cell(r, j + 1, cars[i][j])
+                row += 1
+            print('page num ' + str(page_num))
             page_num += 9999
             break
-    try:
-        print('finished adding page %s' % page_num)
-        for i in range(len(cars)):
-            print("adding to sheet car num " + str(row))
-            sheets.insert_row(cars[i], index=row)
-            row += 1
-            time.sleep(2)
-    except gspread.exceptions.APIError:
-        print('gspread.exceptions.APIError')
-        break
+
+
     page_num += 1
+#
+wb.save('cars.xlsx')
