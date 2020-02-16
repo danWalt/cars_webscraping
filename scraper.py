@@ -1,9 +1,7 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from pprint import pprint
 import requests
 from bs4 import BeautifulSoup
-import time
 import openpyxl
 
 # Google APIs scope
