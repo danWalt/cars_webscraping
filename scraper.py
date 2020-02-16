@@ -29,7 +29,9 @@ s = wb.active
 
 cars = []
 row = 2
-page_num = 196
+page_num = 361
+
+
 while page_num < 838:
     print('processing page number ' + str(page_num))
     # yad 2 cars page
