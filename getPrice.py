@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import requests
 from bs4 import BeautifulSoup
 import openpyxl
-import pprint
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36'}
@@ -19,18 +20,13 @@ soup = BeautifulSoup(page.content, 'html.parser')
 car_types = soup.select('select[name=CarType] > option')
 car_dic = {}
 for i in car_types:
-    # print("mmmm")
-    # print(i)
     car_dic[i.text] = i['value']
-    # print(car_dic[i.text])
+
 # create manufacturer dictionary text -> site code
 manufacturer = soup.select('select[name=Manufactur] > option')
 manufacturer_dic = {}
 for i in manufacturer:
     manufacturer_dic[i.text] = i['value']
-pprint.pprint(manufacturer)
-pprint.pprint(manufacturer_dic)
-
 
 # create model dictionary text -> site code
 model = soup.select('select[name=CarModel] > option')
@@ -47,10 +43,9 @@ for i in year:
 wb = openpyxl.load_workbook('cars.xlsx')
 s = wb.active
 
-pprint.pprint(manufacturer_dic)
-
 for row in range(2, s.max_row):
-    manu = manufacturer_dic[s.cell(row, 1).value.strip()]
+    print(s.cell(row, 1).value)
+    manu = manufacturer_dic[s.cell(row, 1).value]
     mod = mod_dic[s.cell(row, 2).value]
     y = year_dic[s.cell(row, 4).value]
 

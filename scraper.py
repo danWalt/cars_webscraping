@@ -27,7 +27,7 @@ s = wb.active
 
 cars = []
 row = 2
-page_num = 361
+page_num = 1
 
 
 while page_num < 838:

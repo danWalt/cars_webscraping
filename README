@@ -1,0 +1,6 @@
+This is an unfinished project using BeatifulSoup4 to scrape Yad2 website for
+new cars for sale listings and compare them to their estimated price based on
+Yad2 appraisal.
+
+Currently working on "translating" car brand to id used by Yad2 and working
+with hebrew text.
